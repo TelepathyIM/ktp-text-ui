@@ -29,6 +29,7 @@ public:
     QString message;
     QDateTime time;
     QString sender;
+    QString token;
     QStringList messageClasses;
     AdiumThemeMessageInfo::MessageType type;
     QString script;
@@ -97,6 +98,16 @@ QString AdiumThemeMessageInfo::sender() const
 void AdiumThemeMessageInfo::setSender(const QString& sender)
 {
     d->sender = sender;
+}
+
+QString AdiumThemeMessageInfo::token() const
+{
+    return d->token;
+}
+
+void AdiumThemeMessageInfo::setToken(const QString &token)
+{
+    d->token = token;
 }
 
 QString AdiumThemeMessageInfo::userIcons() const
