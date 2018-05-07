@@ -418,6 +418,10 @@ void AdiumThemeView::addMessage(const KTp::Message &message)
         messageInfo.setScript(message.finalizedScript());
 
         messageInfo.setToken(message.token());
+        if (message.isReply()) {
+            messageInfo.setReplyToMessageToken(message.replyToMessageToken());
+            messageInfo.appendMessageClass(QLatin1String("reply"));
+        }
         messageInfo.setTime(message.time());
 
         if (message.property("highlight").toBool()) {

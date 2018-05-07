@@ -30,6 +30,7 @@ public:
     QDateTime time;
     QString sender;
     QString token;
+    QString replyToMessageToken;
     QStringList messageClasses;
     AdiumThemeMessageInfo::MessageType type;
     QString script;
@@ -108,6 +109,16 @@ QString AdiumThemeMessageInfo::token() const
 void AdiumThemeMessageInfo::setToken(const QString &token)
 {
     d->token = token;
+}
+
+QString AdiumThemeMessageInfo::replyToMessageToken() const
+{
+    return d->replyToMessageToken;
+}
+
+void AdiumThemeMessageInfo::setReplyToMessageToken(const QString &token)
+{
+    d->replyToMessageToken = token;
 }
 
 QString AdiumThemeMessageInfo::userIcons() const

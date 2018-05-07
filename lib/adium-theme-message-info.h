@@ -63,6 +63,10 @@ public:
     QString token() const;
     void setToken(const QString &token);
 
+    /** The original message token of this reply message */
+    QString replyToMessageToken() const;
+    void setReplyToMessageToken(const QString &token);
+
     /** Will be replaced with "showIcons" if the "Show user icons" checkbox is selected,*/
     //FIXME in here or in AdiumThemeView..?
     QString userIcons() const;
