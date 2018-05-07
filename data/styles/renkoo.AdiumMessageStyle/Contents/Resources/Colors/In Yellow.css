@@ -49,3 +49,7 @@
 	background-color: #f4f0a7;
 	border-bottom: 1px solid #fff;
 }
+
+.x-incomingItem blockquote {
+	border-left: 4px solid #bdb410;
+}
