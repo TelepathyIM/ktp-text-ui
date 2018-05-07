@@ -59,6 +59,7 @@ AdiumThemePage::AdiumThemePage(QObject *parent)
 
 bool AdiumThemePage::acceptNavigationRequest(const QUrl &url, QWebEnginePage::NavigationType navigationType, bool isMainFrame)
 {
+    qWarning() << url << navigationType << isMainFrame;
     if (!isMainFrame && navigationType == QWebEnginePage::NavigationTypeLinkClicked) {
         /* This might be an iframe (e. g. for the YouTube plugin) */
         return true;
@@ -75,6 +76,7 @@ bool AdiumThemePage::acceptNavigationRequest(const QUrl &url, QWebEnginePage::Na
     }
 
     // don't let QWebEngineView handle the links, we do
+    return true;
     return false;
 }
 
