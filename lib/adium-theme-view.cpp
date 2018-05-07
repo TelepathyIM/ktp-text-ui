@@ -647,7 +647,7 @@ void AdiumThemeView::appendMessage(QString &html, const QString &script, AppendM
 {
     QString js = appendScript(mode).arg(html.replace(QLatin1Char('\\'), QLatin1String("\\\\")) /* replace single \ with \\   */
                                             .replace(QLatin1Char('\"'), QLatin1String("\\\"")) /* replace " with \"   */
-                                            .replace(QLatin1Char('\n'), QLatin1String(""))); /* remove new lines    */
+                                            .replace(QLatin1Char('\n'), QLatin1String("\\n"))); /* remove new lines    */
 
     page()->runJavaScript(js);
 
