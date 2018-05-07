@@ -161,6 +161,25 @@ private:
 
     QString m_service;
     QString m_serviceIconPath;
+
+    // Debug stuff
+
+public:
+    void notifyHtmlReceived();
+
+public Q_SLOTS:
+    void requestHtmlLater();
+
+    void requestHtmlFromPage();
+    void setHtmlCode(const QString &html) { m_html = html; }
+    void saveHtml();
+
+Q_SIGNALS:
+    void htmlReceived();
+
+protected:
+    QTimer *m_htmlTimer = nullptr;
+    QString m_html;
 };
 
 #endif // ADIUMTHEMEVIEW_H

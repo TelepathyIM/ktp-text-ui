@@ -51,6 +51,7 @@
 #include <KIconLoader>
 #include <KProtocolInfo>
 #include <KLocalizedString>
+#include <QTimer>
 
 AdiumThemePage::AdiumThemePage(QObject *parent)
         : QWebEnginePage(parent)
@@ -396,6 +397,23 @@ void AdiumThemeView::clear()
     }
 }
 
+void AdiumThemeView::notifyHtmlReceived()
+{
+    emit htmlReceived();
+}
+
+void AdiumThemeView::requestHtmlLater()
+{
+    if (!m_htmlTimer) {
+        m_htmlTimer = new QTimer(this);
+        m_htmlTimer->setInterval(1000);
+        m_htmlTimer->setSingleShot(true);
+        connect(m_htmlTimer, &QTimer::timeout, this, &AdiumThemeView::requestHtmlFromPage);
+        connect(this, &AdiumThemeView::htmlReceived, this, &AdiumThemeView::saveHtml);
+    }
+    m_htmlTimer->start();
+}
+
 void AdiumThemeView::addMessage(const KTp::Message &message)
 {
     if (message.type() == Tp::ChannelTextMessageTypeAction) {
@@ -515,6 +533,8 @@ void AdiumThemeView::addAdiumContentMessage(const AdiumThemeContentInfo &content
                                  replaceLastContent);
 
     appendMessage(styleHtml, message.script(), mode);
+
+    requestHtmlLater();
 }
 
 void AdiumThemeView::addAdiumStatusMessage(const AdiumThemeStatusInfo& statusMessage)
@@ -634,6 +654,22 @@ void AdiumThemeView::appendMessage(QString &html, const QString &script, AppendM
     if (!script.isEmpty()) {
         page()->runJavaScript(script);
     }
+}
+
+void AdiumThemeView::requestHtmlFromPage()
+{
+    page()->toHtml([this](QString html)
+    {
+        this->setHtmlCode(html);
+        this->notifyHtmlReceived();
+    });
+}
+
+void AdiumThemeView::saveHtml()
+{
+    QFile f(QStringLiteral("/tmp/chan%1.html").arg(QDateTime::currentSecsSinceEpoch()));
+    f.open(QIODevice::WriteOnly);
+    f.write(m_html.toUtf8());
 }
 
 /** Private */
