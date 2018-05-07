@@ -490,6 +490,19 @@ void AdiumThemeView::addAdiumContentMessage(const AdiumThemeContentInfo &content
         message.appendMessageClass(QLatin1String("consecutive"));
     }
 
+    if (!message.replyToMessageToken().isEmpty()) {
+        QString mainPart = message.message();
+        qWarning().noquote() << "Process incoming:" << mainPart;
+//        QStringList lines = mainPart.split(QRegularExpression(QStringLiteral("<br.{0,2}>")));
+//        QString replyLine = lines.first();
+//        qWarning().noquote() << "First:" << replyLine;
+
+//        replyLine = QStringLiteral("<a href=\"#%1\">%2</a>").arg(message.replyToMessageToken()).arg(replyLine);
+//        qWarning().noquote() << "First processed:" << replyLine;
+//        lines[0] = replyLine;
+        message.setMessage(mainPart);
+    }
+
     m_lastContent = message;
 
     switch (message.type()) {
@@ -654,6 +667,7 @@ void AdiumThemeView::appendMessage(QString &html, const QString &script, AppendM
     if (!script.isEmpty()) {
         page()->runJavaScript(script);
     }
+    qWarning().noquote() << "Append message:" << html;
 }
 
 void AdiumThemeView::requestHtmlFromPage()
