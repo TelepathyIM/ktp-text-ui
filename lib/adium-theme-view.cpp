@@ -72,6 +72,8 @@ bool AdiumThemePage::acceptNavigationRequest(const QUrl &url, QWebEnginePage::Na
         Q_EMIT prevConversation();
     } else if (url.scheme() == QLatin1String("data")) {
         return true;
+    } else if (url.scheme() == QLatin1String("ktp")) {
+
     } else {
         QDesktopServices::openUrl(url);
     }
@@ -452,6 +454,8 @@ void AdiumThemeView::addMessage(const KTp::Message &message)
         if (message.sender()) {
             messageInfo.setUserIconPath(message.sender()->avatarData().fileName);
         }
+
+        messageInfo.setFileName(message.fileName());
 
         addAdiumContentMessage(messageInfo);
     }

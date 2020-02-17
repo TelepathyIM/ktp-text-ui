@@ -67,6 +67,8 @@ public:
     QString replyToMessageToken() const;
     void setReplyToMessageToken(const QString &token);
 
+    void setFileName(const QString &fileName);
+
     /** Will be replaced with "showIcons" if the "Show user icons" checkbox is selected,*/
     //FIXME in here or in AdiumThemeView..?
     QString userIcons() const;

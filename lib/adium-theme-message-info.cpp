@@ -31,6 +31,7 @@ public:
     QString sender;
     QString token;
     QString replyToMessageToken;
+    QString fileName;
     QStringList messageClasses;
     AdiumThemeMessageInfo::MessageType type;
     QString script;
@@ -119,6 +120,11 @@ QString AdiumThemeMessageInfo::replyToMessageToken() const
 void AdiumThemeMessageInfo::setReplyToMessageToken(const QString &token)
 {
     d->replyToMessageToken = token;
+}
+
+void AdiumThemeMessageInfo::setFileName(const QString &fileName)
+{
+    d->fileName = fileName;
 }
 
 QString AdiumThemeMessageInfo::userIcons() const
